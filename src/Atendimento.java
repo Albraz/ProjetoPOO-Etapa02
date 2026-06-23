@@ -1,17 +1,20 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Atendimento {
-    public int indiceConsulta;
-    public String observacoes;
-    public String diagnostico;
-    public String[] procedimentos;
-    public int totalProcedimentos;
+
+    private int indiceConsulta;
+    private String observacoes;
+    private String diagnostico;
+    private List<String> procedimentos;
+    
 
     // registro basico - so observacoes
     public Atendimento(int indiceConsulta, String observacoes) {
         this.indiceConsulta = indiceConsulta;
         this.observacoes = observacoes;
         this.diagnostico = "";
-        this.procedimentos = new String[10];
-        this.totalProcedimentos = 0;
+        this.procedimentos = new ArrayList<>();
     }
 
     public Atendimento(int indiceConsulta, String observacoes, String diagnostico) {

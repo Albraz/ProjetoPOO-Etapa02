@@ -1,63 +1,35 @@
-public class Paciente {
-    public String nome;
-    public String cpf;
-    public int idade;
-    public String telefone;
-    public String convenioNome;
-    public boolean ativo;
+public class Paciente extends Pessoa {
+    private String convenio;
+    private boolean ativo;
 
     public Paciente(String nome, String cpf) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.idade = 0;
-        this.telefone = "";
-        this.convenioNome = "";
+        super(nome, cpf); // Chama o construtor da Pessoa
         this.ativo = true;
     }
 
     public Paciente(String nome, String cpf, int idade, String telefone) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.idade = idade;
-        this.telefone = telefone;
-        this.convenioNome = "";
+        super(nome, cpf, idade, telefone);
         this.ativo = true;
     }
 
-    // construtor com todos os dados
-    public Paciente(String nome, String cpf, int idade, String telefone, String convenioNome) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.idade = idade;
-        this.telefone = telefone;
-        this.convenioNome = convenioNome;
+    public Paciente(String nome, String cpf, int idade, String telefone, String convenio) {
+        super(nome, cpf, idade, telefone);
+        this.convenio = convenio;
         this.ativo = true;
     }
 
-    // atualiza so idade e telefone
-    public void complementar(int idade, String telefone) {
-        this.idade = idade;
-        this.telefone = telefone;
-    }
-
-    // atualiza tudo incluindo convenio
-    public void complementar(int idade, String telefone, String convenioNome) {
-        this.idade = idade;
-        this.telefone = telefone;
-        this.convenioNome = convenioNome;
-    }
-
-    public void desativar() {
-        this.ativo = false;
-    }
-
-    public String exibirResumo() {
-        String status = "Sim";
-        if (!ativo) {
-            status = "Nao";
+    @Override
+    public void setIdade(int idade) {
+        if (idade < 0) {
+            System.out.println("[Erro] Idade inválida.");
+            return;
         }
-        return "Nome: " + nome + " | CPF: " + cpf + " | Idade: " + idade
-                + " | Tel: " + telefone + " | Convenio: " + convenioNome
-                + " | Ativo: " + status;
+        super.setIdade(idade);
     }
+
+    public String getConvenio() { return convenio; }
+    public void setConvenio(String convenio) { this.convenio = convenio; }
+
+    public boolean isAtivo() { return ativo; }
+    public void setAtivo(boolean ativo) { this.ativo = ativo; }
 }

@@ -1,12 +1,13 @@
 public class Consulta {
-    public String cpfPaciente;
-    public String nomeProfissional;
-    public String data;
-    public String horario;
-    public String tipo;
-    public String status;
+    
+    private String cpfPaciente;
+    private String nomeProfissional;
+    private String data;
+    private String horario;
+    private String tipo;
+    private String status;
 
-    // sem tipo - assume inicial
+    
     public Consulta(String cpfPaciente, String nomeProfissional, String data, String horario) {
         this.cpfPaciente = cpfPaciente;
         this.nomeProfissional = nomeProfissional;
@@ -16,6 +17,7 @@ public class Consulta {
         this.status = "agendada";
     }
 
+   
     public Consulta(String cpfPaciente, String nomeProfissional, String data, String horario, String tipo) {
         this.cpfPaciente = cpfPaciente;
         this.nomeProfissional = nomeProfissional;
@@ -25,9 +27,8 @@ public class Consulta {
         this.status = "agendada";
     }
 
-    // esse aqui a gente usa na remarcacao pra poder setar o status direto
-    public Consulta(String cpfPaciente, String nomeProfissional, String data,
-                    String horario, String tipo, String status) {
+   
+    public Consulta(String cpfPaciente, String nomeProfissional, String data, String horario, String tipo, String status) {
         this.cpfPaciente = cpfPaciente;
         this.nomeProfissional = nomeProfissional;
         this.data = data;
@@ -36,11 +37,12 @@ public class Consulta {
         this.status = status;
     }
 
+   
     public void cancelar() {
         this.status = "cancelada";
     }
 
-    // cancelar com motivo - retorna a msg formatada
+    
     public String cancelar(String motivo) {
         this.status = "cancelada";
         return "Consulta cancelada. Motivo: " + motivo;
@@ -58,5 +60,56 @@ public class Consulta {
         return "Paciente(CPF): " + cpfPaciente + " | Prof: " + nomeProfissional
                 + " | Data: " + data + " | Hora: " + horario
                 + " | Tipo: " + tipo + " | Status: " + status;
+    }
+
+   
+    
+
+    public String getCpfPaciente() {
+        return cpfPaciente;
+    }
+
+    public void setCpfPaciente(String cpfPaciente) {
+        this.cpfPaciente = cpfPaciente;
+    }
+
+    public String getNomeProfissional() {
+        return nomeProfissional;
+    }
+
+    public void setNomeProfissional(String nomeProfissional) {
+        this.nomeProfissional = nomeProfissional;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
