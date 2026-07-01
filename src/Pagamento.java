@@ -1,4 +1,4 @@
-public class Pagamento {
+public class Pagamento implements Exportavel {
     public int indiceConsulta;
     public double valorFinal;
     public String tipoPagamento;
@@ -55,4 +55,11 @@ public class Pagamento {
         }
         return resumo;
     }
+
+    @Override
+public String exportarDados() {
+    // Supondo que sua classe Pagamento tenha atributos como valor e status
+    return "PAGAMENTO;" + this.getValor() + ";" + this.getStatus(); 
+}
+
 }
