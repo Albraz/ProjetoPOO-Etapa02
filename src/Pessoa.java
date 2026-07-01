@@ -13,9 +13,8 @@ public abstract class Pessoa {
     }
 
     // Construtor mínimo
-    public Pessoa(String nome, String cpf) {
+    public Pessoa(String nome) {
         this.nome = nome;
-        this.cpf = cpf;
     }
 
     // Getters e Setters para proteger os dados (Encapsulamento)
