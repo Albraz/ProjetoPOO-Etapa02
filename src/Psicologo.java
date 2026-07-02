@@ -13,8 +13,9 @@ public class Psicologo extends Profissional {
     }
 
     //Construtor Completo
-    public Psicologo(String nome, String registro, double valorConsulta, String[] diasDisponiveis, int totalDias) {
-        super(nome, "Psicologia", registro, valorConsulta, diasDisponiveis, totalDias);
+    public Psicologo(String nome, String registro, double valorConsulta, HorarioDisponivel[] agenda, String abordagem) {
+        super(nome, "Psicologia", registro, valorConsulta, agenda);
+        this.abordagem = abordagem;
     }
 
     // Implementação dos métodos abstratos
@@ -25,7 +26,25 @@ public class Psicologo extends Profissional {
 
     @Override
     public String exibirResumo() {
-        return "Fisioterapeuta: " + getNome() + " | Registro: " + getRegistro();
+    String listaHorarios = "";
+    if (this.getAgenda() != null && this.getTotalHorarios() > 0) {
+        for (int i = 0; i < this.getTotalHorarios(); i++) {
+            listaHorarios += this.getAgenda()[i].toString();
+            if (i < this.getTotalHorarios() - 1) {
+                listaHorarios += ", ";
+            }
+        }
+    } else {
+        listaHorarios = "Nenhum";
+    }
+
+    return "---Resumo do Profissional---" + "\n" +
+           "Nome: " + this.getNome() + "\n" +
+           "Registro: " + this.getRegistro() + "\n" +
+           "Especialidade: " + this.getEspecialidade() + "\n" +
+           "Valor da Consulta: R$ " + String.format("%.2f", this.getValorConsulta()) + "\n" +
+           "Dias Disponíveis: " + listaHorarios + "\n" +
+           "Abordagem: " + (this.abordagem.isEmpty() ? "Não informada" : this.abordagem);
     }
 
     //getters e setters

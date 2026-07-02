@@ -2,8 +2,9 @@ public abstract class Profissional extends Pessoa {
     private String registro;
     private double valorConsulta;
     private String especialidade;
-    private String[] diasDisponiveis;
-    private int totalDias;
+    private HorarioDisponivel[] agenda; 
+    private int totalHorarios;
+
 
     //construtor mínimo
     public Profissional(String nome, String especialidade) {
@@ -11,8 +12,8 @@ public abstract class Profissional extends Pessoa {
         this.especialidade = especialidade;
         this.registro = "";
         this.valorConsulta = 0;
-        this.diasDisponiveis = new String[7];
-        this.totalDias = 0;
+        this.agenda = new HorarioDisponivel[10]; 
+        this.totalHorarios = 0;
     }
 
     //Construtor intermediário
@@ -21,23 +22,28 @@ public abstract class Profissional extends Pessoa {
         this.especialidade = especialidade;
         this.registro = registro;
         this.valorConsulta = valorConsulta;
-        this.diasDisponiveis = new String[7];
-        this.totalDias = 0;
+        this.agenda = new HorarioDisponivel[10];
+        this.totalHorarios = 0;
     }
 
     //Construtos completo
-    public Profissional(String nome, String especialidade, String registro, double valorConsulta, String[] diasDisponiveis, int totalDias){
+    public Profissional(String nome, String especialidade, String registro, double valorConsulta, HorarioDisponivel[] listaHorarios){
         super(nome);
         this.especialidade = especialidade;
         this.registro = registro;
         this.valorConsulta = valorConsulta;
-        this.diasDisponiveis = new String[7];
-        this.totalDias = totalDias;
-        for (int i = 0; i < totalDias; i++) {
-            this.diasDisponiveis[i] = diasDisponiveis[i];
+        this.agenda = new HorarioDisponivel[10];
+        this.totalHorarios = 0;
+        
+        if (listaHorarios != null) {
+        for (int i = 0; i < listaHorarios.length && i < this.agenda.length; i++) {
+            this.agenda[i] = listaHorarios[i];
+            this.totalHorarios++;
+            }
         }
-    }
 
+    }
+        
     //setter com validação para tratamento de erro
 
     public void setValorConsulta(double valorConsulta) {
@@ -58,13 +64,12 @@ public abstract class Profissional extends Pessoa {
     public String getEspecialidade() { return especialidade; }
     public void setEspecialidade(String especialidade) { this.especialidade = especialidade; }
 
-    public int getTotalDias(){ return totalDias;}
-    public void setTotalDias(int totalDias){ this.totalDias = totalDias; }
+    // Getter para a agenda completa
+    public HorarioDisponivel[] getAgenda() {return agenda;}
+    public void setAgenda(HorarioDisponivel[] agenda) {this.agenda = agenda;}
 
-    public String [] getDiasDisponiveis() { return diasDisponiveis; }
-    public void setDiasDisponiveis(String[] diasDisponiveis) { this.diasDisponiveis = diasDisponiveis;}
-
-    //método a ser implementado específico por especialidade
+    public int getTotalHorarios() {return totalHorarios;}
+    public void setTotalHorarios(int totalHorarios) {this.totalHorarios = totalHorarios;}
 
     public abstract String registrarEspecifico(Atendimento atendimento);
 
