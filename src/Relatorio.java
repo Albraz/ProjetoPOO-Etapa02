@@ -22,7 +22,7 @@ public class Relatorio {
         System.out.println("\n=== RELATORIO - " + nomeProfissional + " ===");
         boolean achou = false;
         for (int i = 0; i < totalConsultas; i++) {
-            if (consultas[i].nomeProfissional.equals(nomeProfissional)) {
+            if (consultas[i].getNomeProfissional().equals(nomeProfissional)) {
                 System.out.println(consultas[i].exibirResumo());
                 String diag = buscarDiagnostico(i, atendimentos, totalAtendimentos);
                 if (!diag.equals("")) {
@@ -43,7 +43,7 @@ public class Relatorio {
                                       String dataInicio, String dataFim) {
         System.out.println("\n=== RELATORIO - " + dataInicio + " a " + dataFim + " ===");
         for (int i = 0; i < totalConsultas; i++) {
-            if (estaNoIntervalo(consultas[i].data, dataInicio, dataFim)) {
+            if (estaNoIntervalo(consultas[i].getData(), dataInicio, dataFim)) {
                 System.out.println(consultas[i].exibirResumo());
                 String diag = buscarDiagnostico(i, atendimentos, totalAtendimentos);
                 if (!diag.equals("")) {
@@ -64,8 +64,8 @@ public class Relatorio {
         double totalEmMultas = 0;
 
         for (int i = 0; i < totalConsultas; i++) {
-            if (consultas[i].status.equals("realizada")) realizadas++;
-            if (consultas[i].status.equals("cancelada")) canceladas++;
+            if (consultas[i].getStatus().equals("realizada")) realizadas++;
+            if (consultas[i].getStatus().equals("cancelada")) canceladas++;
         }
 
         for (int i = 0; i < totalPagamentos; i++) {
@@ -86,8 +86,8 @@ public class Relatorio {
     // busca diagnostico de um atendimento pelo indice da consulta
     public static String buscarDiagnostico(int indiceConsulta, Atendimento[] atendimentos, int total) {
         for (int i = 0; i < total; i++) {
-            if (atendimentos[i].indiceConsulta == indiceConsulta) {
-                return atendimentos[i].diagnostico;
+            if (atendimentos[i].getIndiceConsulta() == indiceConsulta) {
+                return atendimentos[i].getDiagnostico();
             }
         }
         return "";

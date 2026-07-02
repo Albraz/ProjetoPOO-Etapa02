@@ -205,44 +205,171 @@ public class Main {
     }
 
     public static void cadastrarProfissional() {
+        System.out.println("\n--- ESCOLHA A ESPECIALIDADE ---");
+        System.out.println("1 - Fisioterapia");
+        System.out.println("2 - Psicologia");
+        System.out.println("3 - Nutrição");
+        System.out.println("4 - Clínico Geral");
+        System.out.print("Opção: ");
+        int espOp = Integer.parseInt(sc.nextLine());
+
         System.out.print("Nome: ");
         String nome = sc.nextLine();
-        System.out.print("Especialidade (clinica geral/fisioterapia/psicologia/nutricao): ");
-        String esp = sc.nextLine();
 
-        if (!Profissional.especialidadeValida(esp)) {
-            System.out.println("Especialidade invalida!");
-            return;
-        }
-
-        System.out.print("Tipo (1-Minimo / 2-Com registro e valor / 3-Completo): ");
-        int tipo = Integer.parseInt(sc.nextLine());
-
-        if (tipo == 1) {
-            profissionais[totalProfissionais] = new Profissional(nome, esp);
-        } else if (tipo == 2) {
-            System.out.print("Registro: ");
-            String reg = sc.nextLine();
-            System.out.print("Valor consulta: ");
-            double valor = Double.parseDouble(sc.nextLine());
-            profissionais[totalProfissionais] = new Profissional(nome, esp, reg, valor);
-        } else {
-            System.out.print("Registro: ");
-            String reg = sc.nextLine();
-            System.out.print("Valor consulta: ");
-            double valor = Double.parseDouble(sc.nextLine());
-            System.out.print("Quantos dias atende? ");
-            int qtd = Integer.parseInt(sc.nextLine());
-            String[] dias = new String[7];
-            for (int i = 0; i < qtd; i++) {
-                System.out.print("Dia " + (i+1) + ": ");
-                dias[i] = sc.nextLine();
-            }
-            profissionais[totalProfissionais] = new Profissional(nome, esp, reg, valor, dias, qtd);
-        }
-        totalProfissionais++;
-        System.out.println("Profissional cadastrado!");
+        switch (espOp) {
+        case 1: menuCadastroFisioterapeuta(nome); break;
+        case 2: menuCadastroPsicologo(nome); break;
+        case 3: menuCadastroNutricionista(nome); break;
+        case 4: menuCadastroClinico(nome); break;
+        default: System.out.println("Opção inválida!");
     }
+}
+
+//método auxiliar para o cadastro específico fisio
+    private static void menuCadastroFisioterapeuta(String nome) {
+    System.out.println("Escolha o nível de cadastro:");
+    System.out.println("1 - Mínimo | 2 - Intermediário | 3 - Completo");
+    int tipo = Integer.parseInt(sc.nextLine());
+
+    if (tipo == 1) {
+        profissionais[totalProfissionais++] = new Fisioterapeuta(nome);
+    } 
+    else if (tipo == 2) {
+        System.out.print("Registro: ");
+        String reg = sc.nextLine();
+        System.out.print("Valor: ");
+        double val = Double.parseDouble(sc.nextLine());
+        profissionais[totalProfissionais++] = new Fisioterapeuta(nome, reg, val);
+    } 
+    else if (tipo == 3) {
+        System.out.print("Registro: ");
+        String reg = sc.nextLine();
+        System.out.print("Valor: ");
+        double val = Double.parseDouble(sc.nextLine());
+
+        HorarioDisponivel[] agenda = coletarAgenda();
+
+        System.out.println("Total sessões previstas: ");
+        int sessoes = Integer.parseInt(sc.nextLine());
+
+        Fisioterapeuta f = new Fisioterapeuta(nome, reg, val, agenda,sessoes);
+        f.setTotalSessoes(sessoes);
+        profissionais[totalProfissionais++] = f;
+    }
+    System.out.println("Fisioterapeuta cadastrado!");
+    }
+
+    //método auxiliar para o cadastro específico psico
+    private static void menuCadastroPsicologo(String nome) {
+    System.out.println("Escolha o nível de cadastro:");
+    System.out.println("1 - Mínimo | 2 - Intermediário | 3 - Completo");
+    int tipo = Integer.parseInt(sc.nextLine());
+
+    if (tipo == 1) {
+        profissionais[totalProfissionais++] = new Psicologo(nome);
+    } 
+    else if (tipo == 2) {
+        System.out.print("Registro: ");
+        String reg = sc.nextLine();
+        System.out.print("Valor: ");
+        double val = Double.parseDouble(sc.nextLine());
+        profissionais[totalProfissionais++] = new Fisioterapeuta(nome, reg, val);
+    } 
+    else if (tipo == 3) {
+        System.out.print("Registro: "); String reg = sc.nextLine();
+        System.out.print("Valor da Consulta: "); double val = Double.parseDouble(sc.nextLine());
+        System.out.print("Abordagem: "); String ab = sc.nextLine();
+        
+        HorarioDisponivel[] agenda = coletarAgenda();
+        
+        Psicologo p = new Psicologo(nome, reg, val, agenda, ab);
+        p.setAbordagem(ab);
+        profissionais[totalProfissionais++] = p;
+    }
+    System.out.println("Psicologo cadastrado!");
+    }
+
+    //método auxiliar para o cadastro específico nutri
+    private static void menuCadastroNutricionista(String nome) {
+    System.out.println("Escolha o nível de cadastro:");
+    System.out.println("1 - Mínimo | 2 - Intermediário | 3 - Completo");
+    int tipo = Integer.parseInt(sc.nextLine());
+
+    if (tipo == 1) {
+        profissionais[totalProfissionais++] = new Nutricionista(nome);
+    } 
+    else if (tipo == 2) {
+        System.out.print("Registro: ");
+        String reg = sc.nextLine();
+        System.out.print("Valor: ");
+        double val = Double.parseDouble(sc.nextLine());
+        profissionais[totalProfissionais++] = new Fisioterapeuta(nome, reg, val);
+    } 
+    else if (tipo == 3) {
+        System.out.print("Registro: "); String reg = sc.nextLine();
+        System.out.print("Valor da Consulta: "); double val = Double.parseDouble(sc.nextLine());
+        System.out.print("Abordagem: "); String plano = sc.nextLine();
+        
+        HorarioDisponivel[] agenda = coletarAgenda();
+        
+        Nutricionista n = new Nutricionista(nome, reg, val, agenda, plano);
+        n.setPlanoAlimentar(plano);
+        profissionais[totalProfissionais++] = n;
+        }
+    System.out.println("Nutricionista cadastrado!");
+    }
+
+     //método auxiliar para o cadastro específico clinico
+    private static void menuCadastroClinico(String nome) {
+    System.out.println("Escolha o nível de cadastro:");
+    System.out.println("1 - Mínimo | 2 - Intermediário | 3 - Completo");
+    int tipo = Integer.parseInt(sc.nextLine());
+
+    if (tipo == 1) {
+        profissionais[totalProfissionais++] = new ClinicoGeral(nome);
+    } 
+    else if (tipo == 2) {
+        System.out.print("Registro: ");
+        String reg = sc.nextLine();
+        System.out.print("Valor: ");
+        double val = Double.parseDouble(sc.nextLine());
+        profissionais[totalProfissionais++] = new Fisioterapeuta(nome, reg, val);
+    } 
+    else if (tipo == 3) {
+        System.out.print("Registro: "); String reg = sc.nextLine();
+        System.out.print("Valor da Consulta: "); double val = Double.parseDouble(sc.nextLine());
+        System.out.print("Abordagem: "); String enc = sc.nextLine();
+        
+        HorarioDisponivel[] agenda = coletarAgenda();
+        
+        ClinicoGeral c = new ClinicoGeral(nome, reg, val, agenda, enc);
+        c.setEncaminhamento(enc);
+        profissionais[totalProfissionais++] = c;
+    }
+    System.out.println("Clinico geral cadastrado!");
+    }
+
+    //método auxiliar para cadastrar os horários
+    private static HorarioDisponivel[] coletarAgenda() {
+    System.out.print("Quantos horários deseja cadastrar? ");
+    int qtd = Integer.parseInt(sc.nextLine());
+    
+    // Criamos o array com o tamanho exato informado
+    HorarioDisponivel[] agenda = new HorarioDisponivel[qtd];
+    
+    for (int i = 0; i < qtd; i++) {
+        System.out.println("--- Horário " + (i + 1) + " ---");
+        System.out.print("Dia da semana: ");
+        String dia = sc.nextLine();
+        System.out.print("Turno (Manhã/Tarde): ");
+        String turno = sc.nextLine();
+        
+        // Criamos o objeto HorarioDisponivel e armazenamos no array
+        agenda[i] = new HorarioDisponivel(dia, turno);
+    }
+    
+    return agenda;
+}
 
     public static void atualizarProfissional() {
         System.out.print("Nome do profissional: ");
