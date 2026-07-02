@@ -54,6 +54,33 @@ public abstract class Profissional extends Pessoa {
         this.valorConsulta = valorConsulta;
     }
 
+    // atualizar cadastro
+    public void atualizar(String registro, double valorConsulta) {
+    this.registro = registro;
+    this.valorConsulta = valorConsulta;
+    }
+
+    public void atualizar(String registro, double valorConsulta, String[] dias,String[] turnos, int qtd) {
+        this.registro = registro;
+        this.valorConsulta = valorConsulta;
+        this.agenda = new HorarioDisponivel[qtd];       
+        for (int i = 0; i < qtd; i++) {
+            this.agenda[i] = new HorarioDisponivel(dias[i], turnos[i]);
+        }
+        this.totalHorarios = qtd;
+     }
+
+     // verificando o dia que o profissional atende
+    public boolean atendeNoDia(String diaDaSemana) {
+        if (this.agenda == null) return false;
+            for (HorarioDisponivel h : this.agenda) {
+            if (h.getDiasSemana().equalsIgnoreCase(diaDaSemana)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     //getters e setter
 
     public String getRegistro() { return registro; }

@@ -3,12 +3,14 @@ public class Pagamento implements Exportavel {
     public double valorFinal;
     public String tipoPagamento;
     public int parcelas;
+    private String status;
 
     public Pagamento(int indiceConsulta, double valorFinal, String tipoPagamento) {
         this.indiceConsulta = indiceConsulta;
         this.valorFinal = valorFinal;
         this.tipoPagamento = tipoPagamento;
         this.parcelas = 1;
+        this.status = "pendente";
     }
 
     // com parcelas (so pra cartao)
@@ -17,6 +19,7 @@ public class Pagamento implements Exportavel {
         this.valorFinal = valorFinal;
         this.tipoPagamento = tipoPagamento;
         this.parcelas = parcelas;
+        this.status = "pendente";
     }
 
     // sem desconto nenhum
@@ -57,9 +60,14 @@ public class Pagamento implements Exportavel {
     }
 
     @Override
-public String exportarDados() {
-    // Supondo que sua classe Pagamento tenha atributos como valor e status
+    public String exportarDados() {
     return "PAGAMENTO;" + this.getValor() + ";" + this.getStatus(); 
-}
+    }
+
+
+    //getters e setters
+    public double getValor() {return this.valorFinal;}
+    public String getStatus() {return this.status;}
+    public void setStatus(String status) { this.status = status; }
 
 }

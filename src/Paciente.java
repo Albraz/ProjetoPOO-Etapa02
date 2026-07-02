@@ -57,6 +57,11 @@ public class Paciente extends Pessoa {
         this.setAtivo(false);
     }
 
+    //método que informa se o paciente ta ativo
+    public boolean isAtivo() {
+    return this.ativo;
+    }
+
     @Override
     public String exibirResumo() {
         return "---Resumo do Paciente---" + "\n" +  

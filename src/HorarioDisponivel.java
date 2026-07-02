@@ -10,6 +10,7 @@ public class HorarioDisponivel {
     public String toString() {
         return diaSemana + " (" + turno + ")";
     }
+
     // Getters e setters
 
     public String getDiasSemana() { return diaSemana; }
