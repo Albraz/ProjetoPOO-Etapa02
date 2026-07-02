@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Atendimento {
+public class Atendimento implements Exportavel {
 
     private int indiceConsulta;
     private String observacoes;
@@ -90,4 +90,9 @@ public class Atendimento {
     public List<String> getProcedimentos() {
         return new ArrayList<>(procedimentos);
     }
+
+    @Override
+public String exportarDados() {
+    return "ATENDIMENTO;" + indiceConsulta + ";" + observacoes + ";" + diagnostico + ";" + String.join(",", procedimentos);
+}
 }
